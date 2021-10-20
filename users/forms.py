@@ -32,10 +32,10 @@ class RegisterForm(FlaskForm):
             return login()
 
     def validate_password(self, password):
-        p = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[#$%&*+,./:;<>()=?@\[\]_`|{}~])')
+        p = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[#$%&*+,./:;!<>()=?@\[\]_`|{}~])')
         if not p.match(self.password.data):
             raise ValidationError("Password must contain at least 1 digit, 1 lowercase, 1 uppercase letter and 1 "
-                                  "special character from #$%&*+,./:;<>()=?@[]_`|{}~.")
+                                  "special character from #$%&*+,./:;<>()=!?@[]_`|{}~.")
 
     def validate_phone(self, phone):
         ph = re.compile(r'\d{4}-\d{3}-\d{4}$')
