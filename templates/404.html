@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='homeRedirect.js') }}"></script>
 <h1 class="title"> :( </h1>
 <h1 class="title">404
 </h1>
@@ -11,13 +12,5 @@
 <p>Redirecting you Home in 5 seconds..</p>
 <p>(Requires JavaScript)</p>
 
-<script>
-  const index = "/" // index/homepage
-  let timer = 6; // seconds
-  function redirect(){
-   if (timer <=0) window.location = index; // redirects to index
-     else timer--; setTimeout("redirect()", 1000) // sleeps 1 sec and decrements the timer
-  }
-</script>
 <body onload="redirect()">
 {% endblock %}
