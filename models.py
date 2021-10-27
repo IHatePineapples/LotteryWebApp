@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     pin_key = db.Column(db.String(100), nullable=False)
 
     # User activity information
-    registered_on = db.Column(db.DateTime, nullable=True)
+    registered_on = db.Column(db.DateTime, nullable=False)
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
 
@@ -52,6 +52,7 @@ class User(db.Model, UserMixin):
         self.pin_key = pin_key
         self.draw_key = base64.urlsafe_b64encode(scrypt(password, str(get_random_bytes(32)), 32, N=2 ** 14, r=8, p=1))
         self.role = role
+
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
