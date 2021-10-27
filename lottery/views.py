@@ -45,7 +45,7 @@ def view_draws():
     # get all draws that have not been played [played=0]
     playable_draws = Draw.query.filter_by(played=False).all()  # TODO: filter playable draws for current user
 
-    # creates a list of copied post objects which are independent of database.
+    # creates a list of copied draws objects which are independent of database.
     # playable_draws_copies = list(map(lambda x: copy.deepcopy(x), playable_draws))
     # This is better
     playable_draws_copies = copy.deepcopy(playable_draws)
