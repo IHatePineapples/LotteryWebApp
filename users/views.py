@@ -4,7 +4,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import current_user
-
+from werkzeug.security import check_password_hash
 
 from app import db
 from models import User
@@ -58,6 +58,12 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if not user or not check_password_hash(user.password, form.password.data):
+            flash('Please check your login details and try again')
+            return render_template('login.html', form=form)
+
         return profile()
     return render_template('login.html', form=form)
 
