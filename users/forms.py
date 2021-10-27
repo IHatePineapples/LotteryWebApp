@@ -46,13 +46,4 @@ class LoginForm(FlaskForm):
     email = StringField(validators=[Required(), Email()])
     password = PasswordField(validators=[Required()])
     submit = SubmitField()
-# All form fields must be filled. DONE
-# Email must be a valid email address. DONE
-# Firstname and Lastname must not contain the following characters:  * ? ! ' ^ + % & / ( ) = } ] [ { $ # @ < > DONE
-# TODO Phone must be of the form XXXX-XXX-XXXX (including the dashes) DONE
-# Password must be between 6 and 12 characters in length. DONE
-# Password must contain at least 1 digit, 1 lowercase, 1 uppercase and 1 special character. DONE
-# Password and Confirm Password must match. DONE
-# PIN Key must be exactly 32 characters in length. DONE
-# Relevant validation error messages must be shown. DONE
 
