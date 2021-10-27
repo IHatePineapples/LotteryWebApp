@@ -11,6 +11,8 @@ from users.forms import RegisterForm
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
+user = User.query.first()
+draw_key = user.draw_key
 
 
 # VIEWS
@@ -37,7 +39,8 @@ def register():
                         phone=form.phone.data,
                         password=form.password.data,
                         pin_key=form.pin_key.data,
-                        role='user')
+                        role='user',
+                        draw_key=draw_key)
 
         # add the new user to the database
         db.session.add(new_user)
