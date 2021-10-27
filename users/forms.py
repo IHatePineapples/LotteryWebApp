@@ -22,7 +22,7 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField(
         validators=[Required(), EqualTo('password', message='Both password fields must be equal!')])
     pin_key = StringField(validators=[Required(), Length(min=32, max=32,
-                                                            message='PIN Key must be 32 characters in length.')])
+                                                         message='PIN Key must be 32 characters in length.')])
 
     submit = SubmitField()
 
@@ -42,6 +42,10 @@ class RegisterForm(FlaskForm):
         if not ph.match(self.phone.data):
             raise ValidationError("Phone must be of the form XXXX-XXX-XXXX (including the dashes)")
 
+class LoginForm(FlaskForm):
+    email = StringField(validators=[Required(), Email()])
+    password = PasswordField(validators=[Required()])
+    submit = SubmitField()
 # All form fields must be filled. DONE
 # Email must be a valid email address. DONE
 # Firstname and Lastname must not contain the following characters:  * ? ! ' ^ + % & / ( ) = } ] [ { $ # @ < > DONE
