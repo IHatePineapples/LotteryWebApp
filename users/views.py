@@ -12,6 +12,8 @@ from app import db
 from models import User
 from users.forms import RegisterForm, LoginForm
 
+import pyotp
+
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 user = User.query.first()
@@ -65,14 +67,19 @@ def login():
         if not user or not check_password_hash(user.password, form.password.data):
             flash('Please check your login details and try again')
             return render_template('login.html', form=form)
-        login_user(user)
+        if pyotp.TOTP(user.pin_key).verify(form.pin.data):
+            login_user(user)
 
-        user.last_logged_in = user.current_logged_in
-        user.current_logged_in = datetime.now()
-        db.session.add(user)
-        db.session.commit()
 
-        return profile()
+
+            user.last_logged_in = user.current_logged_in
+            user.current_logged_in = datetime.now()
+            db.session.add(user)
+            db.session.commit()
+
+            return profile()
+        else:
+            flash("You have supplied an invalid 2FA token!", "danger")
     return render_template('login.html', form=form)
 
 
