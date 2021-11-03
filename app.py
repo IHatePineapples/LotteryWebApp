@@ -41,7 +41,8 @@ csp = {
         '\'self\'',
         'https://www.google.com/recaptcha/api2/anchor',
         'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css',
-        'https://instructure-uploads-eu.s3.eu-west-1.amazonaws.com/account_154780000000000001/attachments/1162/favicon.ico',
+        'https://instructure-uploads-eu.s3.eu-west-1.amazonaws.com/account_154780000000000001/attachments/1162'
+        '/favicon.ico',
         'https://www.google.com/recaptcha/api2/bframe',
         '\'unsafe-inline\'',
     ],
@@ -49,7 +50,7 @@ csp = {
         'https://www.google.com/recaptcha/api.js',
         'https://www.gstatic.com/recaptcha/releases/UrRmT3mBwY326qQxUfVlHu1P/recaptcha__en.js',
         'https://www.google.com/recaptcha/api2/anchor',
-        'https://www.google.com/recaptcha/api2/bframe'
+        'https://www.google.com/recaptcha/api2/bframe',
         '\'self\'',
         '\'unsafe-inline\'',
 
