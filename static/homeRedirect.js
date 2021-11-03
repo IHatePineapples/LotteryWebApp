@@ -1,3 +1,4 @@
+//DEPRECATED
 let timer = 6; // seconds
 
 function redirect() {

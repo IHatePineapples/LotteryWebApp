@@ -1,3 +1,4 @@
+//DEPRECATED
 // JavaScript function to generate 6 random unique values in order and populate form
 function luckyDip() {
 

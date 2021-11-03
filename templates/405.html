@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script type="text/javascript" src="{{ url_for('static', filename='homeRedirect.js') }}"></script>
 <h1 class="title"> >:/ </h1>
 <h1 class="title">403
 </h1>
@@ -9,8 +8,4 @@
 <h2 class="subtitle">
   Forbidden: Method Not Allowed
 </h2>
-<p>Redirecting you Home in 5 seconds..</p>
-<p>(Requires JavaScript)</p>
-
-<body onload="redirect()">
 {% endblock %}
