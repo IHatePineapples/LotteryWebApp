@@ -83,7 +83,7 @@ def login():
                 flash('Please check your login details and try again. 1 login attempt remaining')
             else:
                 flash('Please check your login details and try again. 2 login attempts remaining')
-
+            logging.warning('SECURITY - Failed Log in attempt [attempt: %s, %s, %s, %s]', session['logins'], user.id, user.email, request.remote_addr)
             return render_template('login.html', form=form)
         if pyotp.TOTP(user.pin_key).verify(form.pin.data):
 
