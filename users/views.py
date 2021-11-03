@@ -16,8 +16,6 @@ import pyotp
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
-user = User.query.first()
-draw_key = user.draw_key
 
 
 # VIEWS
@@ -45,7 +43,7 @@ def register():
                         password=form.password.data,
                         pin_key=form.pin_key.data,
                         role='user',
-                        draw_key=draw_key)
+                        draw_key=None)
 
         # add the new user to the database
         db.session.add(new_user)
