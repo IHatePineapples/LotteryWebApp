@@ -23,7 +23,7 @@ def admin():
 @admin_blueprint.route('/view_all_users', methods=['POST'])
 @login_required
 def view_all_users():
-    return render_template('admin.html', name="current_user.firstname",
+    return render_template('admin.html', name=current_user.firstname,
                            current_users=User.query.filter_by(role='user').all())
 
 
