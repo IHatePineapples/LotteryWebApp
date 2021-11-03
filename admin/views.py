@@ -153,4 +153,4 @@ def logs():
         content = f.read().splitlines()[-10:]
         content.reverse()
 
-    return render_template('admin.html', logs=content, name="current_user.firstname")
+    return render_template('admin.html', logs=content, name=current_user.firstname)
