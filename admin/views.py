@@ -16,6 +16,7 @@ def admin():
     if current_user.role == "admin":
         return render_template('admin.html', name=current_user.firstname)
     else:
+        logging.warning('SECURITY - Invalid Access Attempt [%s, %s, %s] to Admin', current_user.id, current_user.email, request.remote_addr)
         return render_template('403.html')
 
 
