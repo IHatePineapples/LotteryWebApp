@@ -61,6 +61,11 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 
+@app.errorhandler(503)
+def service_unavailable(error):
+    return render_template('503.html'), 503
+
+
 if __name__ == "__main__":
     my_host = "127.0.0.1"
     free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
