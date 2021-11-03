@@ -12,17 +12,28 @@ def NameCharacter_check(form, field):
                 f"Character {char} is not allowed.")
 
 
+# PIN Key must be base 32 !!!
+def PinCharacter_check(form, field):
+    authorized_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+    for char in field.data:
+        if char not in authorized_chars:
+            raise ValidationError(
+                f"Character {char} is not allowed. Must be base32 (all-caps) alphabet.")
+
+
 class RegisterForm(FlaskForm):
     email = StringField(validators=[Required(), Email()])
     firstname = StringField(validators=[Required(), NameCharacter_check])
     lastname = StringField(validators=[Required(), NameCharacter_check])
     phone = StringField(validators=[Required()])
-    password = PasswordField(validators=[Required(), Length(min=6, max=12,
-                                                            message='Password must be between 6 and 12 characters in length.')])
-    confirm_password = PasswordField(
-        validators=[Required(), EqualTo('password', message='Both password fields must be equal!')])
-    pin_key = StringField(validators=[Required(), Length(min=32, max=32,
-                                                         message='PIN Key must be 32 characters in length.')])
+    password = PasswordField(validators=[Required(),
+                                         Length(min=6, max=12,
+                                                message='Password must be between 6 and 12 characters in length.')])
+    confirm_password = PasswordField(validators=[Required(),
+                                                 EqualTo('password', message='Both password fields must be equal!')])
+    pin_key = StringField(validators=[Required(),
+                                      Length(min=32, max=32, message='PIN Key must be 32 characters in length.'),
+                                      PinCharacter_check])
 
     submit = SubmitField()
 
@@ -42,10 +53,10 @@ class RegisterForm(FlaskForm):
         if not ph.match(self.phone.data):
             raise ValidationError("Phone must be of the form XXXX-XXX-XXXX (including the dashes)")
 
+
 class LoginForm(FlaskForm):
     email = StringField(validators=[Required(), Email()])
     password = PasswordField(validators=[Required()])
     pin = StringField(validators=[Required()])
     recaptcha = RecaptchaField()
     submit = SubmitField()
-
