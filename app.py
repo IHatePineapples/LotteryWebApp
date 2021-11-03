@@ -82,7 +82,7 @@ def requires_roles(*roles):
 # HOME PAGE VIEW
 @app.route('/')
 def index():
-    print(request.headers)
+    #print(request.headers)
     return render_template('index.html')
 
 
