@@ -13,14 +13,17 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 @admin_blueprint.route('/admin')
 @login_required
 def admin():
-    return render_template('admin.html', name="PLACEHOLDER FOR FIRSTNAME")
+    if current_user.role == "admin":
+        return render_template('admin.html', name=current_user.firstname)
+    else:
+        return render_template('403.html')
 
 
 # view all registered users
 @admin_blueprint.route('/view_all_users', methods=['POST'])
 @login_required
 def view_all_users():
-    return render_template('admin.html', name="PLACEHOLDER FOR FIRSTNAME",
+    return render_template('admin.html', name="current_user.firstname",
                            current_users=User.query.filter_by(role='user').all())
 
 
@@ -150,4 +153,4 @@ def logs():
         content = f.read().splitlines()[-10:]
         content.reverse()
 
-    return render_template('admin.html', logs=content, name="PLACEHOLDER FOR FIRSTNAME")
+    return render_template('admin.html', logs=content, name="current_user.firstname")
