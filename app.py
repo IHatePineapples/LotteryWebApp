@@ -53,7 +53,7 @@ def page_not_found(error):
 
 @app.errorhandler(405)
 def page_forbidden_method(error):
-    return render_template('405.html'), 403
+    return render_template('405.html'), 405
 
 
 @app.errorhandler(500)
