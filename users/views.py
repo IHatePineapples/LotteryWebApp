@@ -83,7 +83,8 @@ def login():
                 flash('Please check your login details and try again. 1 login attempt remaining')
             else:
                 flash('Please check your login details and try again. 2 login attempts remaining')
-            logging.warning('SECURITY - Failed Log in attempt [attempt: %s, %s, %s, %s]', session['logins'], user.id, user.email, request.remote_addr)
+            logging.warning('SECURITY - Failed Log in attempt [attempt: %s, %s, %s, %s]', session['logins'], user.id,
+                            user.email, request.remote_addr)
             return render_template('login.html', form=form)
         if pyotp.TOTP(user.pin_key).verify(form.pin.data):
 
@@ -97,8 +98,10 @@ def login():
             db.session.add(user)
             db.session.commit()
             logging.warning('SECURITY - Log in [%s, %s, %s]', current_user.id, current_user.email, request.remote_addr)
-
-            return profile()
+            if current_user.role == 'admin':
+                return redirect(url_for('admin.admin'))
+            else:
+                return redirect(url_for('profile.profile'))
         else:
             flash("You have supplied an invalid 2FA token!", "danger")
     return render_template('login.html', form=form)
@@ -107,7 +110,6 @@ def login():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
-
     logging.warning('SECURITY - Log out [%s, %s, %s]', current_user.id, current_user.email, request.remote_addr)
 
     logout_user()
