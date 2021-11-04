@@ -1,4 +1,5 @@
 # LotteryWebApp
+
 The university development team have already implemented a working Python Flask-based lottery web application which they have provided for you for further development. The web application uses the following elements:
 
     Python Flask Project
