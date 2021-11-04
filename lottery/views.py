@@ -44,7 +44,7 @@ def add_draw():
 @login_required
 def view_draws():
     # get all draws that have not been played [played=0]
-    playable_draws = Draw.query.filter_by(played=False, user_id=current_user.id).all()  # TODO: filter playable draws for current user
+    playable_draws = Draw.query.filter_by(played=False, user_id=current_user.id).all()
 
     # creates a list of copied draws objects which are independent of database.
     # playable_draws_copies = list(map(lambda x: copy.deepcopy(x), playable_draws))
@@ -70,7 +70,7 @@ def view_draws():
 @login_required
 def check_draws():
     # get played draws
-    played_draws = Draw.query.filter_by(played=True, user_id=current_user.id).all()  # TODO: filter played draws for current user
+    played_draws = Draw.query.filter_by(played=True, user_id=current_user.id).all()
     played_draws_copies = copy.deepcopy(played_draws)
     decrypted_played_draws = []
     for d in played_draws_copies:
@@ -91,11 +91,9 @@ def check_draws():
 @lottery_blueprint.route('/play_again', methods=['POST'])
 @login_required
 def play_again():
-    delete_played = Draw.__table__.delete().filter_by(user_id=current_user.id).where(Draw.played)  # TODO: delete played draws for current user only
+    delete_played = Draw.__table__.delete().filter_by(user_id=current_user.id).where(Draw.played)
     db.session.execute(delete_played)
     db.session.commit()
 
     flash("All played draws deleted.")
     return lottery()
-
-

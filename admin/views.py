@@ -142,7 +142,7 @@ def run_lottery():
             if len(results) == 0:
                 flash("No winners.")
 
-            return render_template('admin.html', results=results, name="PLACEHOLDER FOR FIRSTNAME")
+            return render_template('admin.html', results=results, name=current_user.firstname)
 
         flash("No user draws entered.")
         return admin()
