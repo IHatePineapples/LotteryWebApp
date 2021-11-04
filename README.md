@@ -7,13 +7,14 @@ This web-app has been thoroughly implemented and tested in multiple computers an
 This has revealed that there is still crashes but those are only configuration-related and not dependant on the code. My main machine runs the code flawlessly without any crash. 
 The code used for the database is exactly the one from the lectures with close to no alteration.   
 #### Ignore any database/sqlite related crashes.   
-fyi: Please make sure of the following:
-    - python is up-to-date
-    - packages are all installed and up-to-date
-    - python from venv/ is up-to-date and so are the apckages
-    - sqlite driver is present
-    - initialise the database through init_db()
-    - should there be errors or crashes related to database, close app, run ini_db() and restart app
+
+    Please make sure of the following:   
+        - python is up-to-date   
+        - packages are all installed and up-to-date   
+        - python from venv/ is up-to-date and so are the apckages   
+        - sqlite driver is present   
+        - initialise the database through init_db()   
+        - should there be errors or crashes related to database, close app, run ini_db() and restart app   
 
 
 ## Summary
