@@ -1,23 +1,5 @@
 # LotteryWebApp
 
-## IMPORTANT
-
-This web-app has been thoroughly implemented and tested in multiple computers and hosts, including my personal computer running linux with all up-to-date pycharm config and venv, my second computer running linux without pycharm, which runs the app from command-line flawlessly  with some random sqlalchemy errors sometimes, the university's PC which are close to never working properly without running init_db() at each instance's start and manually either changing the venv and/or updating packages. 
-
-This has revealed that there is still crashes but those are only configuration-related and not dependant on the code. My main machine runs the code flawlessly without any crash. 
-The code used for the database is exactly the one from the lectures with close to no alteration.   
-#### Ignore any database/sqlite related crashes.   
-
-    Please make sure of the following:   
-        - python is up-to-date   
-        - packages are all installed and up-to-date   
-        - python from venv/ is up-to-date and so are the apckages   
-        - sqlite driver is present   
-        - initialise the database through init_db()   
-        - should there be errors or crashes related to database, close app, run ini_db() and restart app   
-
-
-## Summary
 The university development team have already implemented a working Python Flask-based lottery web application which they have provided for you for further development. The web application uses the following elements:
 
     Python Flask Project
