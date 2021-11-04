@@ -21,6 +21,7 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 # VIEWS
 # view registration
 @users_blueprint.route('/register', methods=['GET', 'POST'])
+@requires_roles(not "admin", not "user")
 def register():
     # create signup form object
     form = RegisterForm()
@@ -59,6 +60,7 @@ def register():
 
 # view user login
 @users_blueprint.route('/login', methods=['GET', 'POST'])
+@requires_roles(not "admin", not "user")
 def login():
     # if session attribute logins does not exist create attribute logins
     if not session.get('logins'):
