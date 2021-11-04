@@ -34,7 +34,7 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = "6LeQO_wcAAAAAAbaqBkIKnBkueYcrnGIZUa-pMyc"
 
 # initialise database
 db = SQLAlchemy(app)
-
+db.session.expire_on_commit = False
 # Security Headers
 csp = {
     'default-src': [
