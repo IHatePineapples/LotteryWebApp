@@ -3,15 +3,13 @@ import logging
 import copy
 
 from flask import Blueprint, render_template, request, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app import db
 from models import Draw, User
 
 # CONFIG
 lottery_blueprint = Blueprint('lottery', __name__, template_folder='templates')
 
-user = User.query.first()
-draw_key = user.draw_key
 
 # VIEWS
 # view lottery page
@@ -30,7 +28,7 @@ def add_draw():
     submitted_draw.strip()
 
     # create a new draw with the form data.
-    new_draw = Draw(user_id=1, draw=submitted_draw, win=False, round=0, draw_key=draw_key)  # TODO: update user_id [user_id=1 is a placeholder]
+    new_draw = Draw(user_id=current_user.id, draw=submitted_draw, win=False, round=0, draw_key=current_user.draw_key)
 
     # add the new draw to the database
     db.session.add(new_draw)
@@ -46,7 +44,7 @@ def add_draw():
 @login_required
 def view_draws():
     # get all draws that have not been played [played=0]
-    playable_draws = Draw.query.filter_by(played=False).all()  # TODO: filter playable draws for current user
+    playable_draws = Draw.query.filter_by(played=False, user_id=current_user.id).all()  # TODO: filter playable draws for current user
 
     # creates a list of copied draws objects which are independent of database.
     # playable_draws_copies = list(map(lambda x: copy.deepcopy(x), playable_draws))
@@ -55,7 +53,7 @@ def view_draws():
     decrypted_playable_draws = []
 
     for d in playable_draws_copies:
-        d.view_draw(draw_key)
+        d.view_draw(current_user.draw_key)
         decrypted_playable_draws.append(d)
 
     # if playable draws exist
@@ -72,11 +70,16 @@ def view_draws():
 @login_required
 def check_draws():
     # get played draws
-    played_draws = Draw.query.filter_by(played=True).all()  # TODO: filter played draws for current user
+    played_draws = Draw.query.filter_by(played=True, user_id=current_user.id).all()  # TODO: filter played draws for current user
+    played_draws_copies = copy.deepcopy(played_draws)
+    decrypted_played_draws = []
+    for d in played_draws_copies:
+        d.view_draw(current_user.draw_key)
+        decrypted_played_draws.append(d)
 
     # if played draws exist
     if len(played_draws) != 0:
-        return render_template('lottery.html', results=played_draws, played=True)
+        return render_template('lottery.html', results=decrypted_played_draws, played=True)
 
     # if no played draws exist [all draw entries have been played therefore wait for next lottery round]
     else:
@@ -88,7 +91,7 @@ def check_draws():
 @lottery_blueprint.route('/play_again', methods=['POST'])
 @login_required
 def play_again():
-    delete_played = Draw.__table__.delete().where(Draw.played)  # TODO: delete played draws for current user only
+    delete_played = Draw.__table__.delete().filter_by(user_id=current_user.id).where(Draw.played)  # TODO: delete played draws for current user only
     db.session.execute(delete_played)
     db.session.commit()
 
