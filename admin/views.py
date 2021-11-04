@@ -34,12 +34,12 @@ def view_all_users():
 def create_winning_draw():
     # get current winning draw
     current_winning_draw = Draw.query.filter_by(win=True).first()
-    round = 1
+    round_no = 1
 
     # if a current winning draw exists
     if current_winning_draw:
         # update lottery round by 1
-        round = current_winning_draw.round + 1
+        round_no = current_winning_draw.round + 1
 
         # delete current winning draw
         db.session.delete(current_winning_draw)
@@ -53,7 +53,7 @@ def create_winning_draw():
     submitted_draw.strip()
 
     # create a new draw object with the form data.
-    new_winning_draw = Draw(user_id=0, draw=submitted_draw, win=True, round=round, draw_key=current_user.draw_key)
+    new_winning_draw = Draw(user_id=0, draw=submitted_draw, win=True, round=round_no, draw_key=current_user.draw_key)
 
     # add the new winning draw to the database
     db.session.add(new_winning_draw)
